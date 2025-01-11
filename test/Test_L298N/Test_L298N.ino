@@ -1,14 +1,23 @@
-#define INT1_PIN 9
-#define INT2_PIN 10
-#define ENA 5
+#define ENA 3
+#define ENB 11
+#define IN1 5
+#define IN2 6
+#define IN3 9
+#define IN4 10
 void setup() {
-  pinMode(INT1_PIN, OUTPUT);
-  pinMode(INT2_PIN, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
   pinMode(ENA, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENB, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(INT1_PIN,HIGH);
-  digitalWrite(INT2_PIN,HIGH);
-  analogWrite(ENA, 200);
+  digitalWrite(IN1,HIGH);
+  digitalWrite(IN2,LOW);
+  analogWrite(ENA, 100);
+  digitalWrite(IN3,HIGH);
+  digitalWrite(IN4,LOW);
+  analogWrite(ENB, 100);
 }
