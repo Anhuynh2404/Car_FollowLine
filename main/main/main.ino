@@ -14,16 +14,19 @@
 #define IN4 11
 
 // Tham số PID
-float Kp = 2.0; // Hệ số tỉ lệ
+float Kp = 5.5; // Hệ số tỉ lệ
 float Ki = 0.0; // Hệ số tích phân
-float Kd = 1.0; // Hệ số vi phân
+float Kd = 0.0; // Hệ số vi phân
 
 int baseSpeed = 100; // Tốc độ cơ bản của động cơ
 float previousError = 0;
 float integral = 0;
 
+boolean isStopped = false;
+
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
   pinMode(SENSOR_LEFT, INPUT);
   pinMode(SENSOR_MID, INPUT);
   pinMode(SENSOR_RIGHT, INPUT);
@@ -41,10 +44,19 @@ void loop() {
   int left = digitalRead(SENSOR_LEFT);
   int mid = digitalRead(SENSOR_MID);
   int right = digitalRead(SENSOR_RIGHT);
+  Serial.print(left);
+  Serial.print(mid);
+  Serial.println(right);
 
-  if (left == LOW && mid == LOW && right == LOW) {
-    stopMotors(); // Dừng xe
-    while (true); // Giữ xe dừng lại
+  if (left == HIGH && mid == HIGH && right == HIGH) {
+    stopMotors();        
+    isStopped = true;    
+  } else {
+    isStopped = false;
+  }
+
+  if (isStopped) {
+    return;
   }
 
   // Xác định lỗi
